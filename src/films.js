@@ -63,50 +63,26 @@ function moviesAverageByCategory(array, genre) {
   return moviesAverage(films);
 }
 
-
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  const numregex = /[0-9]+/g;
-  //I don´t really like this for I use map method to many times, didn´t figure out anything simpler
-  const timing = array
-  //Duration string is divided so hours and minutes are separated
-    .map((film) => film.duration.split(' '))
-    //Numbers are extracted and put inside an array
-    .map((element) => element.map((e) => e.match(numregex)))
-    //parsing numbers to int and operating with them
-    .map((element) => element.reduce((a, b) => (a * 60) + parseInt(b)));
-
-  //I create this array because if I clone movies array and result array would use same references in the values of the objects so I can´t operate with result without changing it
-  const result = [];
-
-// I don´tknow if I´m allowed to use for loop but didn´t find any method that fitted better.
-  for (let i = 0; i < array.length; i++) {
-    //Useful conditional when duration lacks minutes
-    if (typeof timing[i] != 'number') {
-      timing[i] = parseInt(timing[i] * 60);
-    }
-
-    result[i] = {
-      title: array[i].title,
-      year: array[i].year,
-      director: array[i].director,
-      duration: timing[i],
-      genre: array[i].genre,
-      score: array[i].score
+  const timing = array.map((el) => {
+    return {
+      ...el,
+      duration:
+        parseInt(el.duration.split(' ')[0]) * 60 +
+        parseInt(el.duration.split(' ')[1] || 0)
     };
-  }
-
-  return result;
-
+  });
+  return timing;
 }
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(year) {
-  const result = year.sort((movieA, movieB) =>
-  movieA.score < movieB.score  ? 1 : -1).slice(0,1);
-return result;
+  const result = year
+    .sort((movieA, movieB) => (movieA.score < movieB.score ? 1 : -1))
+    .slice(0, 1);
+  return result;
 }
-
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
@@ -119,6 +95,6 @@ if (typeof module !== 'undefined') {
     orderByYear,
     moviesAverageByCategory,
     hoursToMinutes,
-    bestFilmOfYear,
+    bestFilmOfYear
   };
 }
