@@ -74,7 +74,7 @@ function hoursToMinutes(array) {
     //Numbers are extracted and put inside an array
     .map((element) => element.map((e) => e.match(numregex)))
     //parsing numbers to int and operating with them
-    .map((element) => element.reduce((a, b) => (a * 60) + (b * 1)));
+    .map((element) => element.reduce((a, b) => (a * 60) + parseInt(b)));
 
   //I create this array because if I clone movies array and result array would use same references in the values of the objects so I can´t operate with result without changing it
   const result = [];
@@ -82,9 +82,9 @@ function hoursToMinutes(array) {
 // I don´tknow if I´m allowed to use for loop but didn´t find any method that fitted better.
   for (let i = 0; i < array.length; i++) {
     //Useful conditional when duration lacks minutes
-    // if (typeof timing[i] != 'number') {
-    //   timing[i] = parseInt(timing[i] * 60);
-    // }
+    if (typeof timing[i] != 'number') {
+      timing[i] = parseInt(timing[i] * 60);
+    }
 
     result[i] = {
       title: array[i].title,
