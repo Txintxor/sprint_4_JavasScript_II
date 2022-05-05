@@ -1,35 +1,35 @@
 // Exercise 1: Get the array of all directors.
 function getAllDirectors(array) {
-  let result = array.map((movie) => movie.director);
+  const result = array.map((movie) => movie.director);
   console.log('EXERCISE 1 ->', result);
   return result;
 }
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
-  let result = array.filter((movie) => movie.director == director);
+  const result = array.filter((movie) => movie.director == director);
   console.log('EXERCISE 2 ->', result);
   return result;
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverage(movies) {
-  let totalScore = movies
+  const totalScore = movies
     .map((movie) => (movie.score ? movie.score : 5))
     .reduce((prev, current) => prev + current);
-  let result = parseFloat((totalScore / movies.length).toFixed(2));
+  const result = parseFloat((totalScore / movies.length).toFixed(2));
 
   console.log('EXERCISE 3 or 6->', result);
   return result;
 }
 function moviesAverageOfDirector(array, director) {
-  let movies = array.filter((movie) => movie.director == director);
+  const movies = array.filter((movie) => movie.director == director);
   return moviesAverage(movies);
 }
 
 // Exercise 4:  Alphabetic order by title
 function orderAlphabetically(array) {
-  let result = array
+  const result = array
     .map((movie) => movie.title)
     .sort()
     .splice(0, 20);
@@ -42,7 +42,7 @@ function orderAlphabetically(array) {
 //Despues de estudiarlo y repetirlo varias veces lo entendí.
 function orderByYear(array) {
   //El metodo sort() cambia el array original, por eso hago una copia con slice.
-  let result = array.slice();
+  const result = array.slice();
   result.sort((movieA, movieB) =>
     movieA.year > movieB.year
       ? 1
@@ -58,7 +58,7 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-  let films = array.filter((movie) => movie.genre.includes(genre));
+  const films = array.filter((movie) => movie.genre.includes(genre));
 
   return moviesAverage(films);
 }
@@ -74,7 +74,7 @@ function hoursToMinutes(array) {
     //Numbers are extracted and put inside an array
     .map((element) => element.map((e) => e.match(numregex)))
     //parsing numbers to int and operating with them
-    .map((element) => element.reduce((a, b) => parseInt(a * 60) + parseInt(b)));
+    .map((element) => element.reduce((a, b) => (a * 60) + (b * 1)));
 
   //I create this array because if I clone movies array and result array would use same references in the values of the objects so I can´t operate with result without changing it
   const result = [];
@@ -82,9 +82,9 @@ function hoursToMinutes(array) {
 // I don´tknow if I´m allowed to use for loop but didn´t find any method that fitted better.
   for (let i = 0; i < array.length; i++) {
     //Useful conditional when duration lacks minutes
-    if (typeof timing[i] != 'number') {
-      timing[i] = parseInt(timing[i] * 60);
-    }
+    // if (typeof timing[i] != 'number') {
+    //   timing[i] = parseInt(timing[i] * 60);
+    // }
 
     result[i] = {
       title: array[i].title,
